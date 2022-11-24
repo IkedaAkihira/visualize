@@ -5,6 +5,12 @@ const select = document.getElementById('select');
 const mouse0 = [0,0];
 const mouse1 = [250,250];
 
+const canvasSize = 300;
+
+function getSize(){
+    return Math.min(window.innerHeight,window.innerWidth);
+}
+
 function func2ImageData(func,w,h){
     const data = new ImageData(w,h);
     for(let i=0;i<h;i++){
@@ -37,21 +43,21 @@ function wave(y,x){
 }
 
 const draw = ()=>{
-    ctx.putImageData(func2ImageData((select.value=='volt')?volt:wave,300,300),0,0);
+    ctx.putImageData(func2ImageData((select.value=='volt')?volt:wave,canvasSize,canvasSize),0,0);
 }
 
 onmousemove = (e)=>{
-    mouse0[0] = e.clientX;
-    mouse0[1] = e.clientY;
+    mouse0[0] = e.clientX * canvasSize / getSize();
+    mouse0[1] = e.clientY * canvasSize / getSize();
 }
 
 ontouchmove = (e)=>{
     console.log(e);
-    mouse0[0] = e.touches[0].clientX;
-    mouse0[1] = e.touches[0].clientY;
+    mouse0[0] = e.touches[0].clientX * canvasSize / getSize();
+    mouse0[1] = e.touches[0].clientY * canvasSize / getSize();
     if(e.touches.length>=2){
-        mouse1[0] = e.touches[1].clientX;
-        mouse1[1] = e.touches[1].clientY;
+        mouse1[0] = e.touches[1].clientX * canvasSize / getSize();
+        mouse1[1] = e.touches[1].clientY * canvasSize / getSize();
     }
 }
 

@@ -1,3 +1,31 @@
 #canvas{
     touch-action: none;
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    width: auto;
+    height: 100vh;
+}
+
+#select{
+    position: fixed;
+    top: 0px;
+    left: 100vh;
+}
+
+@media (orientation: portrait){
+    #canvas{
+        touch-action: none;
+        position: fixed;
+        top: 0px;
+        left: 0px;
+        width: 100vw;
+        height: auto;
+    }
+
+    #select{
+        position: fixed;
+        top: 100vw;
+        left: 0px;
+    }
 }
