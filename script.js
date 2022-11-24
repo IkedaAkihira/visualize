@@ -27,7 +27,7 @@ function volt(y,x){
 
 function wave(y,x){
     const lambda = 5;
-    const t = 100;
+    const t = 2000;
     const a = 60;
     const now = Date.now();
     const wave1 = a*Math.sin(now/t-Math.hypot(y-mouse1[1],x-mouse1[0])/lambda);
