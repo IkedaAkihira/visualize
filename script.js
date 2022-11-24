@@ -1,7 +1,9 @@
 const canvas = document.getElementById('canvas');
 const ctx = canvas.getContext('2d');
+const select = document.getElementById('select');
 
-let mouseX = 0,mouseY = 0;
+const mouse0 = [0,0];
+const mouse1 = [250,250];
 
 function func2ImageData(func,w,h){
     const data = new ImageData(w,h);
@@ -18,24 +20,39 @@ function func2ImageData(func,w,h){
     return data;
 }
 
-function func(y,x){
-    const z = Math.floor(5000/Math.hypot(y-250,x-250)+5000/Math.hypot(y-mouseY,x-mouseX));
+function volt(y,x){
+    const z = Math.floor(5000/Math.hypot(y-mouse1[1],x-mouse1[0])+5000/Math.hypot(y-mouse0[1],x-mouse0[0]));
     return (z-((z>>3)<<3))*10;
 }
 
+function wave(y,x){
+    const lambda = 5;
+    const t = 100;
+    const a = 60;
+    const now = Date.now();
+    const wave1 = a*Math.sin(now/t-Math.hypot(y-mouse1[1],x-mouse1[0])/lambda);
+    const wave2 = a*Math.sin(now/t-Math.hypot(y-mouse0[1],x-mouse0[0])/lambda);
+
+    return Math.floor(128+wave1+wave2);
+}
+
 const draw = ()=>{
-    ctx.putImageData(func2ImageData(func,500,500),0,0);
+    ctx.putImageData(func2ImageData((select.value=='volt')?volt:wave,300,300),0,0);
 }
 
 onmousemove = (e)=>{
-    mouseX = e.clientX;
-    mouseY = e.clientY;
+    mouse0[0] = e.clientX;
+    mouse0[1] = e.clientY;
 }
 
 ontouchmove = (e)=>{
     console.log(e);
-    mouseX = e.touches[0].clientX;
-    mouseY = e.touches[0].clientY;
+    mouse0[0] = e.touches[0].clientX;
+    mouse0[1] = e.touches[0].clientY;
+    if(e.touches.length>=2){
+        mouse1[0] = e.touches[1].clientX;
+        mouse1[1] = e.touches[1].clientY;
+    }
 }
 
 setInterval(draw,30);
