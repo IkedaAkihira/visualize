@@ -27,9 +27,15 @@ const draw = ()=>{
     ctx.putImageData(func2ImageData(func,500,500),0,0);
 }
 
-onmousemove = (e) =>{
+onmousemove = (e)=>{
     mouseX = e.clientX;
     mouseY = e.clientY;
+}
+
+ontouchmove = (e)=>{
+    console.log(e);
+    mouseX = e.touches[0].clientX;
+    mouseY = e.touches[0].clientY;
 }
 
 setInterval(draw,30);
