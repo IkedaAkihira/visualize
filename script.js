@@ -36,7 +36,7 @@ function volt(y,x){
     for(const choord of touchChoords){
         z += k/Math.hypot(x-choord[0],y-choord[1]);
     }
-    return (z-((z>>3)<<3))*10;
+    return (z-((z>>3)<<3))*32;
 }
 
 function wave(y,x){
