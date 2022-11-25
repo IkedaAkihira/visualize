@@ -13,8 +13,13 @@ function getSize(){
     return Math.min(window.innerHeight,window.innerWidth);
 }
 
-const maxColor = [128,128,255,255];
-const minColor = [255,255,0,255];
+function getComplementaryColor(color){
+    return color.map(el=>Math.abs(255-el));
+}
+
+const maxColor = [255,0,255,255];
+const minColor = getComplementaryColor(maxColor);
+minColor[3] = 255;
 
 function func2ImageData(func,w,h){
     const data = new ImageData(w,h);
@@ -36,7 +41,7 @@ function volt(y,x){
     for(const choord of touchChoords){
         z += k/Math.hypot(x-choord[0],y-choord[1]);
     }
-    return (z-((z>>3)<<3))*32;
+    return 255 - 64 - (z-((z>>3)<<3))*16;
 }
 
 function wave(y,x){
