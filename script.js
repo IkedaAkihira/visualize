@@ -13,8 +13,8 @@ function getSize(){
     return Math.min(window.innerHeight,window.innerWidth);
 }
 
-const maxColor = [255,0,255,255];
-const minColor = [0,0,0,255];
+const maxColor = [128,128,255,255];
+const minColor = [255,255,0,255];
 
 function func2ImageData(func,w,h){
     const data = new ImageData(w,h);
